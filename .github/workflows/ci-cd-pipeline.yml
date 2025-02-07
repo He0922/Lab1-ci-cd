@@ -27,12 +27,13 @@ jobs:
           python app.py
 
       - name: Deploy to Tencent Cloud CVM
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_HOST: ${{ secrets.CVM_IP_ADDRESS }}
-          SSH_USERNAME: ${{ secrets.CVM_USERNAME }}
-          SSH_PASSWORD: ${{ secrets.CVM_PASSWORD }}
-          SOURCE: "."
-          TARGET: "~/HHM"
-          ARGS: "-rltgoDzv0 --delete"
-
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CVM_IP_ADDRESS }}
+          username: ${{ secrets.CVM_USERNAME }}
+          password: ${{ secrets.CVM_PASSWORD }}
+          source: "."
+          target: "~/HHM"
+          script: |
+            rsync -rltgoDzvO --delete ${{ github.workspace }}/ ~/HHM
+      
