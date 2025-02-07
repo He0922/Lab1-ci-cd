@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run script
         run: |
@@ -34,5 +35,5 @@ jobs:
           password: ${{ secrets.CVM_PASSWORD }}
           script: |
             mkdir -p ~/HHM
-            rsync -avz --delete ${{ github.workspace }}/ ~/HHM/
+            rsync -avz --delete ./ ~/HHM/
       
