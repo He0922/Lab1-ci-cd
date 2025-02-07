@@ -32,8 +32,7 @@ jobs:
           host: ${{ secrets.CVM_IP_ADDRESS }}
           username: ${{ secrets.CVM_USERNAME }}
           password: ${{ secrets.CVM_PASSWORD }}
-          source: "."
-          target: "~/HHM"
           script: |
-            rsync -rltgoDzvO --delete ${{ github.workspace }}/ ~/HHM
+            mkdir -p ~/HHM
+            rsync -avz --delete ${{ github.workspace }}/ ~/HHM/
       
