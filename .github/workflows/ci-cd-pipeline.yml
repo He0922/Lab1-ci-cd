@@ -34,5 +34,5 @@ jobs:
           password: ${{ secrets.CVM_PASSWORD }}
           script: |
             mkdir -p ~/HHM
-            rsync -avz --delete ./ ~/HHM/
+            rsync -avz --delete 。/* ~/HHM/
       
