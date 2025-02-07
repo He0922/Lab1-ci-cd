@@ -33,6 +33,17 @@ jobs:
           username: ${{ secrets.CVM_USERNAME }}
           password: ${{ secrets.CVM_PASSWORD }}
           script: |
+            # 进入目标目录（如果不存在，则创建）
             mkdir -p ~/HHM
-            rsync -avz --delete ${GITHUB_WORKSPACE}/ ~/HHM/
-      
+            cd ~/HHM
+
+            # 如果仓库未克隆，则执行 git clone，否则执行 git pull
+            if [ ! -d "./Lab1-ci-cd/.git" ]; then
+              echo "Cloning repository..."
+              git clone https://github.com/He0922/Lab1-ci-cd.git ||exit 1
+            else
+              echo "Repository exists, pulling latest changes..."
+              cd Lab1-ci-cd
+              git reset --hard  # 防止本地修改导致 pull 失败
+              git pull origin main || exit 1
+            fi
