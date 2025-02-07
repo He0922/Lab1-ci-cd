@@ -35,3 +35,4 @@ jobs:
           SOURCE: "."
           TARGET: "~/HHM"
           ARGS: "-rltgoDzv0 --delete"
+
